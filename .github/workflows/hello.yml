@@ -1,0 +1,12 @@
+name: hello
+on: push
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "terraform plan"
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "terraform apply"
