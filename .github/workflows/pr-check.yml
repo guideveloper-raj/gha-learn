@@ -1,0 +1,14 @@
+name: pr-check
+on: pull_request
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4        # copy the PR's code onto the runner
+      - name: Look for passwords in the code
+        run: |
+          if grep -rn "password=" --exclude-dir=.git --exclude-dir=.github . ; then
+            echo "FAIL: found a password in the code"
+            exit 1
+          fi
+          echo "OK: no passwords found"
